@@ -1,28 +1,11 @@
+{% extends 'books/base.html' %}
 {% load humanize %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My first Django WebPage</title>
-</head>
-<body>
-{% if request.user.is_authenticated %}
-    <p>Hello {{ request.user.username|title }}, you were last logged at {{ request.user.last_login|date:"D d M Y" }}</p>
-{% else %}
-    <p>Welcome Anonymous</p>
-{% endif %}
-
-<main>
-    <h1>{{ books.count|apnumber|title }} book{{ books.count|pluralize }}</h1>
-    {% for book in books %}
-        <h2>{{ book.title }} by {{ book.list_authors }}</h2>
-        {% if book.is_favourite %}
-            <span class="highlight">favourite</span>
-        {% endif %}
-        {{ book.review }}
-    {% endfor %}
-
-</main>
-</body>
-</html>
+{% block content %}
+    <main>
+        <h1>{{ books.count|apnumber|title }} book{{ books.count|pluralize }}</h1>
+        {% for book in books %}
+            {% include 'books/book-detail.html' %}
+        {% endfor %}
+    </main>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="The Best Book Review Service Ever!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:700|Merriweather:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'books/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'books/css/style.css' %}">
+
+    <title>Books Reviews</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <img src="{% static 'books/img/logo.png' %}">
+        <div class="welcome">
+            {% if request.user.is_authenticated %}
+                <p>Hello {{ request.user.username|title }}, you were last logged at {{ request.user.last_login|date:"D d M Y" }}</p>
+            {% else %}
+                <p>Welcome Anonymous</p>
+            {% endif %}
+        </div>
+    </header>
+    <nav>
+        <a href="{% url 'books' %}">Books</a>
+        <a href="{% url 'authors' %}">Authors</a>
+    </nav>
+</div>
+<main>
+    {% block content %}{% endblock %}
+</main>
+<footer>
+    <p>The Best Book Reviews Ever!</p>
+</footer>
+</body>
+</html>
