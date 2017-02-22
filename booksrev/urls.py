@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from books.views import AuthorDetailView, AuthorList, BookDetailView, list_books, review_book, ReviewList
+from books.views import AuthorDetailView, AuthorList, BookDetailView, list_books, review_book, ReviewList, CreateAuthor
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', list_books, name='books'),
     url(r'^authors/$', AuthorList.as_view(), name='authors'),
     url(r'^books/(?P<pk>[-\w]+)/$', BookDetailView.as_view(), name="book-detail"),
+    url(r'^authors/add/$', CreateAuthor.as_view(), name="add-author"),
     url(r'^authors/(?P<pk>[-\w]+)/$', AuthorDetailView.as_view(), name="author-detail"),
     url(r'^review/$', ReviewList.as_view(), name='review-books'),
     url(r'^review/(?P<pk>[-\w]+)/$', review_book, name='review-book'),
