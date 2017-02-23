@@ -16,16 +16,20 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from books.views import AuthorDetailView, AuthorList, BookDetailView, list_books, review_book, ReviewList, CreateAuthor
 
 urlpatterns = [
+    url(r'^logout/$', auth_views.logout, {'next_page': 'books'}, name='logout'),
+    url(r'^login/$', auth_views.login, {'template_name': 'books/login.html'}, name='login'),
     url(r'^admin/', admin.site.urls),
     url(r'^$', list_books, name='books'),
     url(r'^authors/$', AuthorList.as_view(), name='authors'),
     url(r'^books/(?P<pk>[-\w]+)/$', BookDetailView.as_view(), name="book-detail"),
-    url(r'^authors/add/$', CreateAuthor.as_view(), name="add-author"),
+    url(r'^authors/add/$', login_required(CreateAuthor.as_view()), name="add-author"),
     url(r'^authors/(?P<pk>[-\w]+)/$', AuthorDetailView.as_view(), name="author-detail"),
-    url(r'^review/$', ReviewList.as_view(), name='review-books'),
+    url(r'^review/$', login_required(ReviewList.as_view()), name='review-books'),
     url(r'^review/(?P<pk>[-\w]+)/$', review_book, name='review-book'),
 ]
 
