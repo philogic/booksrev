@@ -18,9 +18,10 @@
         <img src="{% static 'books/img/logo.png' %}">
         <div class="welcome">
             {% if request.user.is_authenticated %}
-                <p>Hello {{ request.user.username|title }}, you were last logged at {{ request.user.last_login|date:"D d M Y" }} <a href="{% url 'logout' %}">Logout</a></p>
+                <p>Hello {{ request.user.username|title }}, you were last logged at {{ request.user.last_login|date:"D d M Y" }} <a href="{% url 'auth_logout' %}">Logout</a></p>
             {% else %}
-                <p>Welcome Anonymous <a href="{% url 'login' %}">Login</a> </p>
+                <p>Welcome Anonymous <a href="{% url 'auth_login' %}">Login</a></p>
+                <p>Don't have an account? <a href="{% url 'registration_register' %}">Register now!</a></p>
             {% endif %}
         </div>
     </header>

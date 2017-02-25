@@ -21,8 +21,7 @@ from django.contrib.auth.decorators import login_required
 from books.views import AuthorDetailView, AuthorList, BookDetailView, list_books, review_book, ReviewList, CreateAuthor
 
 urlpatterns = [
-    url(r'^logout/$', auth_views.logout, {'next_page': 'books'}, name='logout'),
-    url(r'^login/$', auth_views.login, {'template_name': 'books/login.html'}, name='login'),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', list_books, name='books'),
     url(r'^authors/$', AuthorList.as_view(), name='authors'),
