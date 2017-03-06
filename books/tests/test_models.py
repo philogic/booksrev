@@ -4,6 +4,7 @@ from books.models import Book
 
 # Create your tests here.
 
+
 class BookTest(TestCase):
     def setUp(self):
         self.author1 = AuthorFactory(name="Author 1")
